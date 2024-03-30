@@ -1,31 +1,27 @@
-import "./Counter.css"
-export default function Counter(){
-    // const buttonStyle={
-    //     fontSize:"30px",
-    //     backgroundColor:"#00a5ab",
-    //     width:"50px",
-    //     height:"50px",
-    //     padding:"5px",
-    //     color:"white",
-    //     borderRadius:"25px"
-    // };    
-    
-    function incrementCounterFunction(){
-        console.log("clicked");
-        }
+import { useState } from "react";
+import { CounterButton } from "./CounterButton";
+
+
+export default function Counter() {
+    const [countParent = 0, setCount] = useState(0);
+
+    function incrementCounterFunctionParent(val) {
+        // console.log("incrementCounterFunction",val);
+        setCount(countParent + val);
+    };
+
+    function decrementCounterFunctionParent(val) {
+        // console.log("decrementCounterFunction",val);
+        setCount(countParent - val);
+    };
 
     return (
-        <div className='App'>
-            <div className="Counter">
-            <span className="count">0</span>
-            <div>
-                <button className="counterButton" 
-                    onClick={incrementCounterFunction}
-                    >+1</button>
-            </div>  
-            </div>
+        <div className="Counter">
+            <span className="totalCount">{countParent}</span>
+            <CounterButton val={1} incrementCounterFunctionParent={incrementCounterFunctionParent} decrementCounterFunctionParent={decrementCounterFunctionParent} />
+            <CounterButton val={2} incrementCounterFunctionParent={incrementCounterFunctionParent} decrementCounterFunctionParent={decrementCounterFunctionParent} />
+            <CounterButton val={3} incrementCounterFunctionParent={incrementCounterFunctionParent} decrementCounterFunctionParent={decrementCounterFunctionParent} />
         </div>
-        );
+    );
 
-    
 }
