@@ -15,12 +15,21 @@ export default function Counter() {
         setCount(countParent - val);
     };
 
+    function resetValue(){
+        setCount(countParent-countParent);
+    }
+
     return (
         <div className="Counter">
             <span className="totalCount">{countParent}</span>
             <CounterButton val={1} incrementCounterFunctionParent={incrementCounterFunctionParent} decrementCounterFunctionParent={decrementCounterFunctionParent} />
             <CounterButton val={2} incrementCounterFunctionParent={incrementCounterFunctionParent} decrementCounterFunctionParent={decrementCounterFunctionParent} />
             <CounterButton val={3} incrementCounterFunctionParent={incrementCounterFunctionParent} decrementCounterFunctionParent={decrementCounterFunctionParent} />
+            <div>    
+                <button className="resetButton" 
+                    onClick={resetValue} 
+                    >Reset</button>
+            </div>
         </div>
     );
 

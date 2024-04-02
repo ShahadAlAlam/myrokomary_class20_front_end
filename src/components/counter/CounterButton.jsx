@@ -1,5 +1,5 @@
 import "./Counter.css"
-import { useState } from "react";
+// import { useState } from "react";
 import {PropTypes} from 'prop-types';
 
 export  function CounterButton({val,incrementCounterFunctionParent,decrementCounterFunctionParent}){
@@ -9,7 +9,7 @@ export  function CounterButton({val,incrementCounterFunctionParent,decrementCoun
         and second one is function to update the value
     const state = useState(0);
     */
-    const [count=0,setCount] = useState(0);
+    // const [count=0,setCount] = useState(0);
     // const buttonStyle={
     //     fontSize:"30px",
     //     backgroundColor:"#00a5ab",
@@ -21,25 +21,25 @@ export  function CounterButton({val,incrementCounterFunctionParent,decrementCoun
     // };   
     
     
-    // // function incrementCounterFunction(properties){
-    function incrementCounterFunction(){
-        console.log("incrementCounterFunction",val);
-        // setCount(count+properties.val);
-        incrementCounterFunctionParent(val);
-        setCount(count+val);
-        }
+    // // // function incrementCounterFunction(properties){
+    // function incrementCounterFunction(){
+    //     // console.log("incrementCounterFunction",val);
+    //     // setCount(count+properties.val);
+    //     incrementCounterFunctionParent(val);
+    //     // setCount(count+val);
+    //     }
     
-    // // function decrementCounterFunction(properties){
-    function decrementCounterFunction(){
-        console.log("decrementCounterFunction",val);
-        // setCount(count-properties.val);
-        decrementCounterFunctionParent(val);
-        setCount(count-val);
-        // state[1] (state[0]-1);
-        // console.log(state[0]);
-        // console.log(state[1]);
-        // console.log("clicked");
-        }
+    // // // function decrementCounterFunction(properties){
+    // function decrementCounterFunction(){
+    //     // console.log("decrementCounterFunction",val);
+    //     // setCount(count-properties.val);
+    //     decrementCounterFunctionParent(val);
+    //     // setCount(count-val);
+    //     // state[1] (state[0]-1);
+    //     // console.log(state[0]);
+    //     // console.log(state[1]);
+    //     // console.log("clicked");
+    //     }
 
     return (
         <div className='App'>
@@ -47,10 +47,12 @@ export  function CounterButton({val,incrementCounterFunctionParent,decrementCoun
             {/* <span className="count">{count}</span> */}
             <div>
                 <button className="counterButton" 
-                    onClick={incrementCounterFunction} 
+                    // onClick={incrementCounterFunction}
+                    onClick={()=>incrementCounterFunctionParent(val)} 
                     >+{val}</button>
                 <button className="counterButtonDec" 
-                    onClick={decrementCounterFunction} 
+                    // onClick={decrementCounterFunction} 
+                    onClick={()=>decrementCounterFunctionParent(val)}
                     >-{val}</button>
             </div>  
             </div>
