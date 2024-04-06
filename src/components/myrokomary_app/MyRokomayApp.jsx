@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 // import { Link } from 'react-router';
 import './MyRokomaryApp.css'
 import LogoutComponent from './LogoutComponent';
@@ -8,8 +8,16 @@ import HeaderComponent from './HeaderComponent';
 import FooterComponent from './FooterComponent';
 import ListBooksComponent from './ListBooksComponent';
 import ErrorComponent from './ErrorComponent';
-import AuthProvider from './security/AuthContext'
+import AuthProvider, { useAuth } from './security/AuthContext'
 export default function MyRokomaryApp() {
+  function AuthenticatedRoute({children}){
+    const authContext = useAuth()
+    if(authContext.isAuthenticated){
+      return children;
+    }
+    return <Navigate to='/' />
+  }
+
   return (
     <div className="MyRokomaryApp">
       <AuthProvider>
@@ -19,8 +27,8 @@ export default function MyRokomaryApp() {
           <Routes>
             <Route path='/' element={<LoginComponent />} />
             <Route path='/login' element={<LoginComponent />} />
-            <Route path='/welcome/:username' element={<WelcomeComponent />} />
-            <Route path='/books' element={<ListBooksComponent />} />
+            <Route path='/welcome/:username' element={<AuthenticatedRoute> <WelcomeComponent /></AuthenticatedRoute>} />
+            <Route path='/books' element={<AuthenticatedRoute> <ListBooksComponent /></AuthenticatedRoute>} />
             <Route path='/logout' element={<LogoutComponent />} />
             <Route path='*' element={<ErrorComponent />} />
           </Routes>

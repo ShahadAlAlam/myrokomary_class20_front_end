@@ -20,7 +20,7 @@ export default function LoginComponent() {
   const [username, setUser] = useState('admin');
   const [password, setPassword] = useState('admin');
 
-  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  // const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
   const [showErrorMessage, setShowErrorMessage] = useState(false);
 
@@ -46,10 +46,10 @@ export default function LoginComponent() {
       // navigate('/welcome/'+username);
       navigate(`/welcome/${username}`);
     } else {
-      authContext.setAuthenticated(false);
-      console.log("failed");
+      // authContext.setAuthenticated(false);
+      // console.log("failed");
       setShowErrorMessage(true);
-      setShowSuccessMessage(false);
+      // setShowSuccessMessage(false);
     }
   }
 

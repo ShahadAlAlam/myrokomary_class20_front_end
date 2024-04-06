@@ -18,12 +18,12 @@ components "children" so in MyRokomaryApp everything is wraped around by AuthPro
 // 3. share it with other components
 export default function AuthProvider({children}){
     // 2. put some state in the context
-    const [number,setNumber] = useState(0);
-    const [isAuthinticated,setAuthenticated] = useState(false);
+    // const [number,setNumber] = useState(0);
+    const [isAuthenticated,setAuthenticated] = useState(false);
     
     const [userNameValue,setUserNameValue] = useState();
     
-    const valueTobeShared = {number, isAuthinticated, userNameValue, setAuthenticated, setUserNameValue};
+    // const valueTobeShared = {number, isAuthinticated, userNameValue, setAuthenticated, setUserNameValue};
 
 
     // increment number value after interval setInterval is a react function, 1000 = 1 second
@@ -42,9 +42,16 @@ export default function AuthProvider({children}){
     }
   }
 
+  
+  function logout(){
+    setAuthenticated(false);
+    setUserNameValue();
+    return true;
+  }
+
     return (
         // <AuthContext.Provider value={{number, isAuthinticated,  setAuthenticated , userNameValue, setUserNameValue}}>
-        <AuthContext.Provider value={{number, isAuthinticated,  setAuthenticated , login}}>
+        <AuthContext.Provider value={{isAuthenticated, userNameValue, login, logout}}>
         {/* <AuthContext.Provider value={valueTobeShared}> */}
             {children}
         </AuthContext.Provider>
