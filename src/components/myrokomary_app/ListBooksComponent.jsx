@@ -1,19 +1,24 @@
 // import axios from "axios";
 import { useAuth } from "./security/AuthContext";
 import { useEffect, useState } from "react";
-import {  apiPathAllBooksList } from "./api/BooksApiService";
+import {  apiPathAllBooksList, apiPathDeleteBooks,apiPathDeleteBooksById } from "./api/BooksApiService";
 
-export default function ListBooksComponent() {
+ function ListBooksComponent() {
 
   const authContext = useAuth();
   
   const [books,setBooks] = useState([]);
+
+  const [showMessage, setShowMessage] = useState(false);
+
+  const [message, setMessage] = useState("");
 
   useEffect(
     ()=>{GetBooks()},[]
   )
 
   function  GetBooks(){
+    // console.log("get books called")
     // axios.get("http://localhost:8090/all-books-list")
     apiPathAllBooksList().then((response)=> setBooksResponse(response))
     .catch((error)=>setErrorResponse(error));
@@ -22,6 +27,7 @@ export default function ListBooksComponent() {
 
 
   function setBooksResponse(response){
+    console.log(response)
     // console.log("successfull");
     console.log(response.data);
     setBooks(response.data);
@@ -31,6 +37,21 @@ export default function ListBooksComponent() {
     console.log("failed");
     // setBooks([]);
     // return;
+  }
+
+  function deteteBooks(id){
+    console.log(id)
+    apiPathDeleteBooksById(id)
+    .then((response)=>showResponseMessage(response))
+    .catch((error)=>console.log(error))
+    .finally(console.log("refreshing data"));
+    // console.log("refreshing data")
+    GetBooks();
+  }
+
+  function showResponseMessage(response){
+    setMessage(response.data.details); 
+    setShowMessage(true);
   }
 
   // const books = [{
@@ -72,6 +93,7 @@ export default function ListBooksComponent() {
       <div>
         {/* <table className='ListBooksData'>  changed to bootstrap*/}
         {/* <table className='table table-dark'> */}
+        {showMessage && <div>{message}</div>}
         <table className="table table-striped table-light">
           <thead className="thead-dark">
             <tr>
@@ -81,6 +103,7 @@ export default function ListBooksComponent() {
               <th scope="col">Edition</th>
               <th scope="col">Country</th>
               <th scope="col">Language</th>
+              <th scope="col">Delete</th>
             </tr>
           </thead>
           <tbody>
@@ -94,6 +117,8 @@ export default function ListBooksComponent() {
                     <td scope="col">{book.edition}</td>
                     <td scope="col">{book.country}</td>
                     <td scope="col">{book.language}</td>
+                    <td scope="col"><button className="btn btn-warning"
+                      onClick={()=>deteteBooks(book.id)}>Delete</button></td>
                   </tr>
                 )
               )
@@ -104,3 +129,5 @@ export default function ListBooksComponent() {
     </div>
   );
 }
+
+export default ListBooksComponent;
