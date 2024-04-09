@@ -40,7 +40,7 @@ export function HeaderComponent() {
                   {isAuthenticated && <Link className='nav-link' to={`/welcome/${userNameValue}`}>Home</Link>}
                 </li>
                 <li className='nav-item fs-5'>
-                  {isAuthenticated && <Link className='nav-link' to='/books'>Books list</Link>}
+                  {isAuthenticated && <Link className='nav-link' to='/listbooks'>Books list</Link>}
                 </li>
               </ul>
             </div>

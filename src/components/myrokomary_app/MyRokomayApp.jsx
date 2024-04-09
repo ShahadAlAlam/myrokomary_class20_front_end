@@ -8,11 +8,13 @@ import HeaderComponent from './HeaderComponent';
 import FooterComponent from './FooterComponent';
 import ListBooksComponent from './ListBooksComponent';
 import ErrorComponent from './ErrorComponent';
+import BooksComponent from './BooksComponent';
 import AuthProvider, { useAuth } from './security/AuthContext'
+
 export default function MyRokomaryApp() {
-  function AuthenticatedRoute({children}){
+  function AuthenticatedRoute({ children }) {
     const authContext = useAuth()
-    if(authContext.isAuthenticated){
+    if (authContext.isAuthenticated) {
       return children;
     }
     return <Navigate to='/' />
@@ -28,7 +30,8 @@ export default function MyRokomaryApp() {
             <Route path='/' element={<LoginComponent />} />
             <Route path='/login' element={<LoginComponent />} />
             <Route path='/welcome/:username' element={<AuthenticatedRoute> <WelcomeComponent /></AuthenticatedRoute>} />
-            <Route path='/books' element={<AuthenticatedRoute> <ListBooksComponent /></AuthenticatedRoute>} />
+            <Route path='/listbooks' element={<AuthenticatedRoute> <ListBooksComponent /></AuthenticatedRoute>} />
+            <Route path='/books/:id' element={<AuthenticatedRoute> <BooksComponent /></AuthenticatedRoute>} />
             <Route path='/logout' element={<LogoutComponent />} />
             <Route path='*' element={<ErrorComponent />} />
           </Routes>

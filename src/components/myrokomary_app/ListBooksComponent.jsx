@@ -2,6 +2,7 @@
 import { useAuth } from "./security/AuthContext";
 import { useEffect, useState } from "react";
 import {  apiPathAllBooksList, apiPathDeleteBooks,apiPathDeleteBooksById } from "./api/BooksApiService";
+import { useNavigate } from "react-router-dom";
 
  function ListBooksComponent() {
 
@@ -12,6 +13,8 @@ import {  apiPathAllBooksList, apiPathDeleteBooks,apiPathDeleteBooksById } from 
   const [showMessage, setShowMessage] = useState(false);
 
   const [message, setMessage] = useState("");
+ 
+  const navigate = useNavigate();
 
   useEffect(
     ()=>{GetBooks()},[]
@@ -27,9 +30,9 @@ import {  apiPathAllBooksList, apiPathDeleteBooks,apiPathDeleteBooksById } from 
 
 
   function setBooksResponse(response){
-    console.log(response)
+    // console.log(response)
     // console.log("successfull");
-    console.log(response.data);
+    // console.log(response.data);
     setBooks(response.data);
   }
 
@@ -50,8 +53,14 @@ import {  apiPathAllBooksList, apiPathDeleteBooks,apiPathDeleteBooksById } from 
   }
 
   function showResponseMessage(response){
+    // console.log(response);
     setMessage(response.data.details); 
     setShowMessage(true);
+  }
+
+  function updateBooks(id){
+    console.log(id);
+    navigate(`/books/${id}`)
   }
 
   // const books = [{
@@ -93,7 +102,7 @@ import {  apiPathAllBooksList, apiPathDeleteBooks,apiPathDeleteBooksById } from 
       <div>
         {/* <table className='ListBooksData'>  changed to bootstrap*/}
         {/* <table className='table table-dark'> */}
-        {showMessage && <div>{message}</div>}
+        {showMessage && <div className="alert alert-warning">{message}</div>}
         <table className="table table-striped table-light">
           <thead className="thead-dark">
             <tr>
@@ -101,9 +110,11 @@ import {  apiPathAllBooksList, apiPathDeleteBooks,apiPathDeleteBooksById } from 
               <th scope="col">Author</th>
               <th scope="col">Publisher</th>
               <th scope="col">Edition</th>
+              <th scope="col">Number of Pages</th>
               <th scope="col">Country</th>
               <th scope="col">Language</th>
               <th scope="col">Delete</th>
+              <th scope="col">Update</th>
             </tr>
           </thead>
           <tbody>
@@ -115,10 +126,13 @@ import {  apiPathAllBooksList, apiPathDeleteBooks,apiPathDeleteBooksById } from 
                     <td scope="col">{book.author}</td>
                     <td scope="col">{book.publisher}</td>
                     <td scope="col">{book.edition}</td>
+                    <td scope="col">{book.numberOfPages}</td>
                     <td scope="col">{book.country}</td>
                     <td scope="col">{book.language}</td>
                     <td scope="col"><button className="btn btn-warning"
                       onClick={()=>deteteBooks(book.id)}>Delete</button></td>
+                    <td scope="col"><button className="btn btn-success"
+                      onClick={()=>updateBooks(book.id)}>Update</button></td>
                   </tr>
                 )
               )

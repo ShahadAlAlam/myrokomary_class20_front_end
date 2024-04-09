@@ -16,7 +16,7 @@ const apiClient = axios.create({
 
 export const apiPathAllBooksList = ()=> apiClient.get(`/all-books-list`);
 
-export const apiPathGetBookById = ({id})=> apiClient.get(`/get-book-by-id/${id}`);
+export const apiPathGetBookById = (id)=> apiClient.get(`/get-book-by-id/${id}`);
 
 export const apiPathAddBooks = ({books})=> apiClient.post(`/add-book`);
 

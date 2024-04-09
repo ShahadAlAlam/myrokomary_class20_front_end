@@ -11,7 +11,7 @@ export default function WelcomeComponent() {
       <h1>Welcome {username}</h1>
       <div className='container'>
         <div>Welcome Component</div>
-        <pre>{textVal}</pre><Link className='nav-link' to='/books'>Go here</Link>
+        <pre>{textVal}</pre><Link className='nav-link' to='/listbooks'>Go here</Link>
         {/* <button type="button" name="listBooks" onClick={()=>{navigate("/books")}}>list books</button> */}
       </div>
     </div>
