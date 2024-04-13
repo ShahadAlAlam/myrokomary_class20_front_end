@@ -1,12 +1,15 @@
-import { useParams } from "react-router-dom";
-import { apiPathDeleteBooksById, apiPathGetBookById } from "./api/BooksApiService";
+import {useNavigate, useParams} from "react-router-dom";
+import {apiPathGetBookById, apiPathUpdateBooks} from "./api/BooksApiService";
 import { useEffect, useState } from "react";
-import { Formik, Field, Form } from "formik";
+import {Formik, Field, Form, ErrorMessage} from "formik";
 
 function BooksComponent(){
     
   const params = useParams();
+
   const [id,setId] = useState(params.id);
+
+  const navigate = useNavigate();
 
   const [title,setTitle] = useState("");
   const [author,setAuthor] = useState("");
@@ -21,7 +24,7 @@ function BooksComponent(){
   useEffect(
     ()=>{
         console.log(`id called useEffect ${id}`)
-        getBooksById(id)
+        getBooksById(id);
     } ,[id]
   )
   function getBooksById(id){
@@ -32,10 +35,10 @@ function BooksComponent(){
     
 
   function setBooksResponse(response){
-    // console.log(response)
+    console.log(response)
     // console.log("successfull");
-    console.log(response.data);
-    setId(response.data.id);
+    console.log("setBooksResponse", response.data);
+    setId(!response.data.id?response.data.id:params.id);
     setTitle(response.data.title);
     setAuthor(response.data.author);
     setPublisher(response.data.publisher);
@@ -52,23 +55,44 @@ function BooksComponent(){
   }
 
   function onSubmit(value){
-    console.log(value)
-
+    apiPathUpdateBooks(value)
+        .then(onSubmitNavigate)
+        .catch((error)=>console.log(error))
   }
+
+  function onSubmitNavigate(){
+      navigate('/listbooks')
+  }
+    function validate(value){
+        let error ={}
+        if(!value.title || value.title.length<=0){
+            error.title= "Title can not be empty";
+        }
+        console.log("validate",value)
+        return error;
+    }
     return (
         <div className="container">
             <h1>Enter Book Details</h1>
             <div>
                 <Formik initialValues={{id,title,author,publisher,edition,numberOfPages,country,language}}
-                    enableReinitialize ={true} 
-                    onSubmit={onSubmit}
+                        enableReinitialize ={true}
+                        onSubmit={onSubmit}
+                        validate={validate}
+                        // validateOnBlur={false} //only validate of felid change
+                        // validateOnChange={false} // only validate when submit
                     >
                     {
                         (props)=>(
                         <Form>
+                            <ErrorMessage
+                            name="title"
+                            component="div"
+                            className="alert alert-warning"
+                            />
                             <fieldset className="form-group">
                                 <label>id</label>
-                                <Field type="number" className="display-control" name="id"></Field>
+                                <Field type="number" className="form-control" name="id" value={id}></Field>
                             </fieldset>
                             <fieldset className="form-group">
                                 <label>Title</label>
@@ -76,7 +100,7 @@ function BooksComponent(){
                             </fieldset>
                             <fieldset className="form-group">
                                 <label>Auther</label>
-                                <Field type="text" className="form-control" name="auther"></Field>
+                                <Field type="text" className="form-control" name="author"></Field>
                             </fieldset>
                             <fieldset className="form-group">
                                 <label>Publisher</label>

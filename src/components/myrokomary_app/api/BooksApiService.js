@@ -20,7 +20,7 @@ export const apiPathGetBookById = (id)=> apiClient.get(`/get-book-by-id/${id}`);
 
 export const apiPathAddBooks = ({books})=> apiClient.post(`/add-book`);
 
-export const apiPathUpdateBooks = ({books})=> apiClient.put(`/update-book`);
+export const apiPathUpdateBooks = (books)=> apiClient.put(`/update-book`,books);
 
 export const apiPathDeleteBooks = ({books})=> apiClient.delete(`/delete-book`);
 
