@@ -35,11 +35,11 @@ export default function LoginComponent() {
     setPassword(event.target.value);
   }
 
-  function handleSubmit() {
+  async function handleSubmit() {
     // if (username == "admin" && password == "admin") {
     //   authContext.setAuthenticated(true);
     //   authContext.setUserNameValue(username);
-    if (authContext.login(username,password)) {
+    if (await authContext.login(username,password)) {
       // console.log("success");
       // setShowSuccessMessage(true);
       // setShowErrorMessage(false);

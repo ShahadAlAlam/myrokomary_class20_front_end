@@ -6,17 +6,28 @@ export default function(){
     const [message,setMessage]=useState([]);
 
     function callData(){
-        axios.get("http://localhost:8090/all-books-list")
-        .then((response)=>showResponse(response))
-        .catch((error)=>showErrorResponse(error))
-        .finally(()=>console.log('cleanup'));
+        axios.get(`http://localhost:8090/preFilght`,{
+            headers:{
+                Authorization: 'basic YWRtaW46YWRtaW4='
+            }
+        })
+            .then((response)=>console.log(response))
+            .catch((error)=>console.log(error));
+        // axios.get(`http://192.168.1.222:8090/all-books-list`,{
+        //     headers:{
+        //         Authorization: 'Basic YWRtaW46YWRtaW4='
+        //     }
+        // })
+        // .then((response)=>showResponse(response))
+        // .catch((error)=>showErrorResponse(error))
+        // .finally(()=>console.log('cleanup'));
     }
     function showResponse(response){
-        setMessage(response.data)
+        // setMessage(response.data)
         console.log(response)
     }
     function showErrorResponse(error){
-        setMessage(error.data)
+        // setMessage(error.data)
         console.log(error)
     }
     return(

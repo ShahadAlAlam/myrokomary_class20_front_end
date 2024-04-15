@@ -10,7 +10,7 @@ function App() {
       {/* <LoginComponent/> */}
       {/* <WelcomeComponent/> */}
       {/* <Counter/> */}
-      {/* <LearinigComponent/> */}
+      {/* <LearinigComponent/>*/}
     </div>
   );
 }

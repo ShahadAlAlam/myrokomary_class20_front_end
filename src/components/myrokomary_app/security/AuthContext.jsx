@@ -1,4 +1,6 @@
 import { createContext, useContext, useState } from "react";
+import {apiPathExecuteBasicAuthenticationService} from "../api/BooksApiService";
+import {apiClient} from "../api/ApiClient";
 
 
 // 1. create context and export it for give access to other components 
@@ -22,6 +24,8 @@ export default function AuthProvider({children}){
     const [isAuthenticated,setAuthenticated] = useState(false);
     
     const [userNameValue,setUserNameValue] = useState();
+
+    const [token,setToken] = useState("");
     
     // const valueTobeShared = {number, isAuthinticated, userNameValue, setAuthenticated, setUserNameValue};
 
@@ -30,28 +34,60 @@ export default function AuthProvider({children}){
     // setInterval( ()=>setNumber(number+1) , 5000 )
 
     
-  function login(username,password) {
-    if (username == "admin" && password == "admin") {
-        setAuthenticated(true);
-        setUserNameValue(username);
-        return true;
-    } else {
-      setAuthenticated(false);
-      setUserNameValue();
-      return false;
+  // function login(username,password) {
+  //   if (username == "admin" && password == "admin") {
+  //       setAuthenticated(true);
+  //       setUserNameValue(username);
+  //       return true;
+  //   } else {
+  //     setAuthenticated(false);
+  //     setUserNameValue();
+  //     return false;
+  //   }
+  // }
+
+    async function login(username,password) {
+        const baToken ='Basic '+ window.btoa(username+":"+password);
+        // setAuthenticated(false);
+        // setUserNameValue(username);
+
+        try{
+            const response = await apiPathExecuteBasicAuthenticationService(baToken);
+
+            if (response.status==200) {
+                setAuthenticated(true);
+                setUserNameValue(username);
+                setToken(baToken);
+
+                apiClient.interceptors.request.use(
+                    (config)=>{
+                        config.headers.Authorization=baToken;
+                        return config;
+                    }
+                );
+                return true;
+            } else {
+                logout();
+                return false;
+            }
+
+        } catch (error){
+            logout();
+            return false;
+        }
     }
-  }
 
   
   function logout(){
     setAuthenticated(false);
     setUserNameValue();
+    setToken(null);
     return true;
   }
 
     return (
         // <AuthContext.Provider value={{number, isAuthinticated,  setAuthenticated , userNameValue, setUserNameValue}}>
-        <AuthContext.Provider value={{isAuthenticated, userNameValue, login, logout}}>
+        <AuthContext.Provider value={{isAuthenticated, userNameValue, login, logout, token}}>
         {/* <AuthContext.Provider value={valueTobeShared}> */}
             {children}
         </AuthContext.Provider>

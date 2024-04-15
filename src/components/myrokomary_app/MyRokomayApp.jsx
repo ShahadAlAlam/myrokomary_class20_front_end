@@ -30,6 +30,7 @@ export default function MyRokomaryApp() {
             <Route path='/' element={<LoginComponent />} />
             <Route path='/login' element={<LoginComponent />} />
             <Route path='/welcome/:username' element={<AuthenticatedRoute> <WelcomeComponent /></AuthenticatedRoute>} />
+            <Route path='/listbooks/:messagedata' element={<AuthenticatedRoute> <ListBooksComponent /></AuthenticatedRoute>} />
             <Route path='/listbooks' element={<AuthenticatedRoute> <ListBooksComponent /></AuthenticatedRoute>} />
             <Route path='/books/:id' element={<AuthenticatedRoute> <BooksComponent /></AuthenticatedRoute>} />
             <Route path='/logout' element={<LogoutComponent />} />

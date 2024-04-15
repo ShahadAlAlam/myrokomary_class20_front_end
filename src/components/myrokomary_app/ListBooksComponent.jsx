@@ -2,7 +2,8 @@
 import { useAuth } from "./security/AuthContext";
 import { useEffect, useState } from "react";
 import {  apiPathAllBooksList, apiPathDeleteBooks,apiPathDeleteBooksById } from "./api/BooksApiService";
-import { useNavigate } from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
+import Alert from "bootstrap/js/src/alert";
 
  function ListBooksComponent() {
 
@@ -13,11 +14,31 @@ import { useNavigate } from "react-router-dom";
   const [showMessage, setShowMessage] = useState(false);
 
   const [message, setMessage] = useState("");
+
+  const [alertType, setAlertType] = useState("alert alert-primary");
+
+
  
   const navigate = useNavigate();
 
+  const params = useParams();
+
+  const len = !params.messagedata?params.messagedata:"";
+
+  const [messagedata,setMessageData] = useState(!params.messagedata>0?params.messagedata:"");
+
+  const [showMessagedata,setShowMessagedata] = useState(!params.messagedata?true:false);
+
+  setInterval( ()=>{
+      setShowMessagedata(false)
+      setShowMessage(false)
+  }, 5000 )
+
   useEffect(
-    ()=>{GetBooks()},[]
+    ()=>{
+        console.log(params.messagedata);
+        GetBooks()
+    },[]
   )
 
   function  GetBooks(){
@@ -45,7 +66,7 @@ import { useNavigate } from "react-router-dom";
   function deteteBooks(id){
     console.log(id)
     apiPathDeleteBooksById(id)
-    .then((response)=>showResponseMessage(response))
+    .then((response)=>{showResponseMessage(response); setAlertType("alert alert-success")})
     .catch((error)=>console.log(error))
     .finally(console.log("refreshing data"));
     // console.log("refreshing data")
@@ -102,7 +123,11 @@ import { useNavigate } from "react-router-dom";
       <div>
         {/* <table className='ListBooksData'>  changed to bootstrap*/}
         {/* <table className='table table-dark'> */}
-        {showMessage && <div className="alert alert-warning">{message}</div>}
+        {/*  {showMessage && <div className="alert alert-primary">{message}</div>}*/}
+          {showMessage && <div className={alertType} >{message}</div>}
+          {showMessagedata && <div className="alert alert-primary">{messagedata}</div>}
+
+          <div className="btn btn-success m-5" onClick={()=>updateBooks(-1)}>Add New Book</div>
         <table className="table table-striped table-light">
           <thead className="thead-dark">
             <tr>

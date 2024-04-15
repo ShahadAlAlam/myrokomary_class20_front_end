@@ -1,5 +1,5 @@
 import {useNavigate, useParams} from "react-router-dom";
-import {apiPathGetBookById, apiPathUpdateBooks} from "./api/BooksApiService";
+import {apiPathAddBooks, apiPathGetBookById, apiPathUpdateBooks} from "./api/BooksApiService";
 import { useEffect, useState } from "react";
 import {Formik, Field, Form, ErrorMessage} from "formik";
 
@@ -7,7 +7,8 @@ function BooksComponent(){
     
   const params = useParams();
 
-  const [id,setId] = useState(params.id);
+  const [id,setId] = useState((params.id!=-1?params.id:null));
+    const [messagedata,setMessageData] = useState();
 
   const navigate = useNavigate();
 
@@ -23,8 +24,10 @@ function BooksComponent(){
 
   useEffect(
     ()=>{
-        console.log(`id called useEffect ${id}`)
-        getBooksById(id);
+        // console.log(`id called useEffect ${id}`)
+        if(params.id!=-1) {
+            getBooksById(id);
+        }
     } ,[id]
   )
   function getBooksById(id){
@@ -38,7 +41,7 @@ function BooksComponent(){
     console.log(response)
     // console.log("successfull");
     console.log("setBooksResponse", response.data);
-    setId(!response.data.id?response.data.id:params.id);
+    setId(!response.data.id?response.data.id:(params.id!=-1?params.id:null));
     setTitle(response.data.title);
     setAuthor(response.data.author);
     setPublisher(response.data.publisher);
@@ -55,13 +58,21 @@ function BooksComponent(){
   }
 
   function onSubmit(value){
-    apiPathUpdateBooks(value)
-        .then(onSubmitNavigate)
-        .catch((error)=>console.log(error))
+      if(params.id==-1) {
+      apiPathAddBooks(value)
+          .then((response)=>onSubmitNavigate(response))
+          .catch((error)=>console.log(error))
+      } else {
+          apiPathUpdateBooks(value)
+              .then((response) => onSubmitNavigate(response))
+              .catch((error) => console.log(error))
+      }
   }
 
-  function onSubmitNavigate(){
-      navigate('/listbooks')
+  function onSubmitNavigate(response){
+      console.log(response.data.details)
+      setMessageData(response.data.details);
+      navigate(`/listbooks/${response.data.details}`)
   }
     function validate(value){
         let error ={}
@@ -74,7 +85,7 @@ function BooksComponent(){
     return (
         <div className="container">
             <h1>Enter Book Details</h1>
-            <div>
+            <div className="form">
                 <Formik initialValues={{id,title,author,publisher,edition,numberOfPages,country,language}}
                         enableReinitialize ={true}
                         onSubmit={onSubmit}
