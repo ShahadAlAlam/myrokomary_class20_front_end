@@ -1,5 +1,7 @@
 import { createContext, useContext, useState } from "react";
-import {apiPathExecuteBasicAuthenticationService} from "../api/BooksApiService";
+import { apiPathExecuteBasicAuthenticationService,
+    apiPathExecuteJwtAuthenticationService
+} from "../api/AuthenticationService";
 import {apiClient} from "../api/ApiClient";
 
 
@@ -47,21 +49,33 @@ export default function AuthProvider({children}){
   // }
 
     async function login(username,password) {
+        //basic Authentication
         const baToken ='Basic '+ window.btoa(username+":"+password);
+
         // setAuthenticated(false);
         // setUserNameValue(username);
 
         try{
+            //basic Authentication
             const response = await apiPathExecuteBasicAuthenticationService(baToken);
 
+            //jwt Authentication
+            // const response = await apiPathExecuteJwtAuthenticationService(username,password);
+            // console.log(response);
+            // const jwtToken ="Bearer "+response.data.token;
+            // const jwtToken =response.data.token;
             if (response.status==200) {
                 setAuthenticated(true);
                 setUserNameValue(username);
+                //basic Authentication
                 setToken(baToken);
+                // setToken(jwtToken);
 
                 apiClient.interceptors.request.use(
                     (config)=>{
+                        //basic Authentication
                         config.headers.Authorization=baToken;
+                        // config.headers.Authorization=jwtToken;
                         return config;
                     }
                 );

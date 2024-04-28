@@ -36,8 +36,8 @@ export default function MyRokomaryApp() {
             <Route path='/logout' element={<LogoutComponent />} />
             <Route path='*' element={<ErrorComponent />} />
           </Routes>
-          {/* <FooterComponent /> */}
         </BrowserRouter>
+        <FooterComponent />
       </AuthProvider>
       {/* <LoginComponent/>
         <WelcomeComponent/> */}

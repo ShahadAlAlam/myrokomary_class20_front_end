@@ -23,11 +23,12 @@ export const apiPathDeleteBooks = ({books})=> apiClient.delete(`/delete-book`);
 
 export const apiPathDeleteBooksById = (id)=> apiClient.delete(`/delete-book-by-id/${id}`);
 
-export const apiPathExecuteBasicAuthenticationService = (token)=> apiClient.get(`/basicauth`,{
-    headers:{
-        Authorization: token
-    }
-});
+// export const apiPathExecuteBasicAuthenticationService = (token)=> apiClient.get(`/basicauth`,{
+//     headers:{
+//         Authorization: token
+//     }
+// });
+
 
 
 
