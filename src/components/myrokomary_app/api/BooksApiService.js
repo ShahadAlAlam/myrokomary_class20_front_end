@@ -11,7 +11,7 @@ import {apiClient} from "./ApiClient";
 // export const apiPathPathVariable = ({id})=> axios.get(`${mainApiPath}/get-book-by-id/${id}`);
 
 // export const apiPathAllBooksList = ()=> apiClient.get(`/all-books-list`);
-export const apiPathAllBooksList = ()=> apiClient.get(`/all-books-list`);
+export const apiPathAllBooksList = (pageNumber,pageSize)=> apiClient.get(`/all-books-list?pageNumber=${pageNumber}&pageSize=${pageSize}`);
 
 export const apiPathGetBookById = (id)=> apiClient.get(`/get-book-by-id/${id}`);
 

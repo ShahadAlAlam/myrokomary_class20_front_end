@@ -6,7 +6,10 @@ import {useNavigate, useParams} from "react-router-dom";
 import Alert from "bootstrap/js/src/alert";
 
 function ListBooksComponent() {
-
+    const pagination={
+        "pageNumber":0,
+        "pageSize":100
+    }
     const authContext = useAuth();
 
     const [books, setBooks] = useState([]);
@@ -43,7 +46,7 @@ function ListBooksComponent() {
     function GetBooks() {
         // console.log("get books called")
         // axios.get("http://localhost:8090/all-books-list")
-        apiPathAllBooksList().then((response) => setBooksResponse(response))
+        apiPathAllBooksList(0,100).then((response) => setBooksResponse(response))
             .catch((error) => setErrorResponse(error));
         // .finally(()=>console.log("cleanup"));
     }

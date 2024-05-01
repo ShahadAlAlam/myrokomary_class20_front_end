@@ -28,20 +28,23 @@ function BooksComponent() {
         () => {
             // console.log(`id called useEffect ${id}`)
             if (params.id != -1) {
-                getBooksById(id);
+                    getBooksById(id);
             }
         }, [id]
     )
 
     function getBooksById(id) {
-        apiPathGetBookById(id)
-            .then((response) => setBooksResponse(response))
-            .catch((error) => setErrorResponse(error));
+        console.log("getBooksById",id);
+        if(id!=undefined) {
+            apiPathGetBookById(id)
+                .then((response) => setBooksResponse(response))
+                .catch((error) => setErrorResponse(error));
+        }
     }
 
 
     function setBooksResponse(response) {
-        console.log(response)
+        // console.log(response)
         // console.log("successfull");
         console.log("setBooksResponse", response.data);
         setId(!response.data.id ? response.data.id : (params.id != -1 ? params.id : null));
@@ -55,7 +58,7 @@ function BooksComponent() {
     }
 
     function setErrorResponse(error) {
-        console.log(error);
+        console.log("error",error);
         // setBooks([]);
         // return;
     }
@@ -66,14 +69,15 @@ function BooksComponent() {
                 .then((response) => onSubmitNavigate(response))
                 .catch((error) => console.log(error))
         } else {
-            apiPathUpdateBooks(value)
-                .then((response) => onSubmitNavigate(response))
-                .catch((error) => console.log(error))
+                apiPathUpdateBooks(value)
+                    .then((response) => onSubmitNavigate(response))
+                    .catch((error) => console.log(error))
+
         }
     }
 
     function onSubmitNavigate(response) {
-        console.log(response.data.details)
+        // console.log(response.data.details)
         setMessageData(response.data.details);
         navigate(`/listbooks/${response.data.details}`)
     }
@@ -114,7 +118,7 @@ function BooksComponent() {
                                             </div>
                                             <div className="col-md-10">
                                                 <Field type="number" className="form-control" name="id"
-                                                       value={id} readonly></Field>
+                                                       value={id} readOnly></Field>
                                             </div>
                                         </div>
                                     </fieldset>}
