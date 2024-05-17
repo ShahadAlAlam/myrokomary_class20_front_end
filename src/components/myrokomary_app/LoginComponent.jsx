@@ -3,17 +3,8 @@ import {useNavigate} from 'react-router-dom';
 import {useAuth} from './security/AuthContext';
 
 import {
-    MDBBtn,
-    MDBContainer,
-    MDBRow,
-    MDBCol,
-    MDBCard,
-    MDBCardBody,
-    MDBInput,
-    MDBIcon,
-    MDBCheckbox
-}
-    from 'mdb-react-ui-kit';
+    MDBBtn, MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBInput, MDBIcon, MDBCheckbox
+} from 'mdb-react-ui-kit';
 
 
 export default function LoginComponent() {
@@ -129,44 +120,114 @@ export default function LoginComponent() {
 
 
     return (
+        // <div className="login-wrap">
+        //     <div className="login-html">
+        //         <label for="tab-1" className="tab">Sign In</label>
+        //                 <div className="login-form">
+        //                     <div className="sign-in-htm">
+        //                         <div className="group">
+        //                             <label for="user" className="label">Username or Email</label>
+        //                             <input id="user" type="text" className="input"/>
+        //                         </div>
+        //                         <div className="group">
+        //                             <label for="pass" className="label">Password</label>
+        //                             <input id="pass" type="password" className="input" data-type="password"/>
+        //                         </div>
+        //                         <div className="group">
+        //                             <input type="submit" className="button" value="Sign In"/>
+        //                         </div>
+        //                         <div className="hr"></div>
+        //                     </div>
+        //                 </div>
+        //     </div>
+        // </div>
+
+
         <div className='body'>
-            <div className='container'>
-                <div className='card st'>
-                    <div className='card-body'>
-                        <div className='card-title'>Sign in</div>
-                        <form>
-                            {/* {showSuccessMessage && <div>Authentication Successful</div>} */}
-                            {showErrorMessage && <div>Authentication failed, Please check your Credentials</div>}
-                            <div className="mb-3">
-                                <span><label>Username</label></span> <span>
-                <input
-                    type="username"
-                    className="form-control"
-                    placeholder="Enter Username"
-                    value={username}
-                    onChange={handleUserName}
-                />
-                </span>
-                            </div>
-                            <div className="mb-3">
-                                <label>Password</label>
-                                <input
-                                    type="password"
-                                    className="form-control"
-                                    placeholder="Enter password"
-                                    value={password}
-                                    onChange={handlePassword}
-                                />
-                            </div>
-                            <div className="d-grid">
-                                <button type="button" className="btn btn-primary btn" onClick={handleSubmit}>
-                                    Login
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+                       <div className='container login-wrap'>
+                           <div className='login-html'>
+                               <div className='card-body'>
+                                   <div className='card-title'>Sign in</div>
+                                   <form>
+                                       {/* {showSuccessMessage && <div>Authentication Successful</div>} */}
+                                       {showErrorMessage &&
+                                           <div>Authentication failed, Please check your Credentials</div>}
+                                       <div className="mb-3">
+                                           <span><label>Username</label></span>
+                                           <span>
+                                            <input
+                                                type="username"
+                                                className="form-control"
+                                                placeholder="Enter Username"
+                                                value={username}
+                                                onChange={handleUserName}
+                                            />
+                                        </span>
+                                       </div>
+                                       <div className="mb-3">
+                                           <label>Password</label>
+                                           <input
+                                               type="password"
+                                               className="form-control"
+                                               placeholder="Enter password"
+                                               value={password}
+                                               onChange={handlePassword}
+                                           />
+                                       </div>
+                                       <div className="d-grid">
+                                           <button type="button" className="btn btn-primary btn" onClick={handleSubmit}>
+                                               Login
+                                           </button>
+                                       </div>
+                                   </form>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+
+
+        // <div className="login-wrap">
+        //     <div className="login-html">
+        //         <label htmlFor="tab-1" className="tab">Sign In</label>
+        //          <div className="login-form">
+        //              <div className="sign-in-htm">
+        //                 <form className="form">
+        //                     {/* {showSuccessMessage && <div>Authentication Successful</div>} */}
+        //                     {showErrorMessage &&
+        //                         <div>Authentication failed, Please check your Credentials</div>}
+        //                     {/*<div className="mb-3">*/}
+        //                     <div className="group">
+        //                         <label for="username" className="labelLs">Username</label>
+        //                         {/*<input id="user" type="text" className="input"/>*/}
+        //                              <input
+        //                                  type="username"
+        //                                  className="form-control input"
+        //                                  placeholder="Enter Username"
+        //                                  value={username}
+        //                                  onChange={handleUserName}
+        //                              />
+        //                     </div>
+        //                     {/*<div className="mb-3">*/}
+        //                     <div className="group">
+        //                         <label>Password</label>
+        //                         <input
+        //                             type="password"
+        //                             className="form-control"
+        //                             placeholder="Enter password"
+        //                             value={password}
+        //                             onChange={handlePassword}
+        //                         />
+        //                     </div>
+        //                     <div className="d-grid">
+        //                         <button type="button" className="btn btn-primary btn" onClick={handleSubmit}>
+        //                             Login
+        //                         </button>
+        //                     </div>
+        //                 </form>
+        //              </div>
+        //         </div>
+        //     </div>
+        // </div>
+
     );
 }

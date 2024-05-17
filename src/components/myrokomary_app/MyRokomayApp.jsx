@@ -10,6 +10,7 @@ import ListBooksComponent from './ListBooksComponent';
 import ErrorComponent from './ErrorComponent';
 import BooksComponent from './BooksComponent';
 import AuthProvider, { useAuth } from './security/AuthContext'
+import UserProfile from "./UserProfile";
 
 export default function MyRokomaryApp() {
   function AuthenticatedRoute({ children }) {
@@ -33,6 +34,7 @@ export default function MyRokomaryApp() {
             <Route path='/listbooks/:messagedata' element={<AuthenticatedRoute> <ListBooksComponent /></AuthenticatedRoute>} />
             <Route path='/listbooks' element={<AuthenticatedRoute> <ListBooksComponent /></AuthenticatedRoute>} />
             <Route path='/books/:id' element={<AuthenticatedRoute> <BooksComponent /></AuthenticatedRoute>} />
+            <Route path='/user' element={<AuthenticatedRoute> <UserProfile /></AuthenticatedRoute>} />
             <Route path='/logout' element={<LogoutComponent />} />
             <Route path='*' element={<ErrorComponent />} />
           </Routes>

@@ -7,7 +7,7 @@ function BooksComponent() {
 
     const params = useParams();
 
-    const [booksId, setId] = useState((params.id != -1 ? params.id : null));
+    const [id, setId] = useState((params.id != -1 ? params.id : null));
 
     const [showId, setShowId] = useState((params.id == -1 ? false : true));
 
@@ -28,9 +28,9 @@ function BooksComponent() {
         () => {
             // console.log(`id called useEffect ${id}`)
             if (params.id != -1) {
-                getBooksById(booksId);
+                getBooksById(id);
             }
-        }, [booksId]
+        }, [id]
     )
 
     function getBooksById(id) {
@@ -46,15 +46,15 @@ function BooksComponent() {
     function setBooksResponse(response) {
         // console.log(response)
         // console.log("successfull");
-        console.log("setBooksResponse", response.data.body);
-        setId(!response.data.body.booksId ? response.data.body.booksId : (params.id != -1 ? params.id : null));
-        setTitle(response.data.body.title);
-        setAuthor(response.data.body.author);
-        setPublisher(response.data.body.publisher);
-        setEdition(response.data.body.edition);
-        setNumberOfPages(response.data.body.numberOfPages);
-        setCountry(response.data.body.country);
-        setLanguage(response.data.body.language);
+        console.log("setBooksResponse", response.data);
+        setId(!response.data.id ? response.data.id : (params.id != -1 ? params.id : null));
+        setTitle(response.data.title);
+        setAuthor(response.data.author);
+        setPublisher(response.data.publisher);
+        setEdition(response.data.edition);
+        setNumberOfPages(response.data.numberOfPages);
+        setCountry(response.data.country);
+        setLanguage(response.data.language);
     }
 
     function setErrorResponse(error) {
@@ -99,7 +99,7 @@ function BooksComponent() {
                         <div className="form text-start">
                             <Formik
                                 initialValues={{
-                                    booksId,
+                                    id,
                                     title,
                                     author,
                                     publisher,
@@ -129,7 +129,7 @@ function BooksComponent() {
                                                     </div>
                                                     <div className="col-md-10">
                                                         <Field type="number" className="form-control" name="id"
-                                                               value={booksId} readOnly></Field>
+                                                               value={id} readOnly></Field>
                                                     </div>
                                                 </div>
                                             </fieldset>}

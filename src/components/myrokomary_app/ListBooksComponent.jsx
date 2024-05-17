@@ -53,10 +53,10 @@ function ListBooksComponent() {
 
 
     function setBooksResponse(response) {
-        // console.log(response)
+        console.log(response)
         // console.log("successfull");
         // console.log(response.data);
-        setBooks(response.data);
+        setBooks(response.data.body);
     }
 
     function setErrorResponse(error) {
@@ -124,7 +124,7 @@ function ListBooksComponent() {
     return (
         // <div className='ListBooksComponent'/>
         <div className='body'>
-            <div className='container'>
+            <div className='container-fluid'>
                 <div>
                     <h1>Books List</h1>
                     {/* <table className='ListBooksData'>  changed to bootstrap*/}

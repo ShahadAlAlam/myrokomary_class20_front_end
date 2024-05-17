@@ -29,7 +29,7 @@ export function HeaderComponent() {
   return (
       <header className='border-bottom border-light border-5 mb-5 p-2'>
         <div className='header-blue'>
-          <div className='container'>
+          <div className='container-fluid'>
             <div className="row">
               <nav className="navbar navbar-expand-lg">
                 {isAuthenticated && <Link className='navbar-brand nav-link ms-2 fs-2 fw-bold text-white'
@@ -49,6 +49,25 @@ export function HeaderComponent() {
                 </div>
                 <ul className="navbar-nav">
                   <li className='nav-item fs-5'>
+                    {/*<div className="panel-heading">*/}
+                    {/*  <h4 className="panel-title">*/}
+                    {/*    <a data-toggle="collapse" href="#collapse1">Collapsible list group</a>*/}
+                    {/*  </h4>*/}
+                    {/*</div>*/}
+                    {/*<div id="collapse1" className="panel-collapse collapse">*/}
+                    {/*  <ul className="list-group">*/}
+                    {/*    <li className="list-group-item">*/}
+                    {/*      {isAuthenticated &&*/}
+                    {/*          <Link className='nav-link text-white' to='/user'>Profile</Link>}*/}
+                    {/*    </li>*/}
+                    {/*    <li className="list-group-item">*/}
+                    {/*      {isAuthenticated &&*/}
+                    {/*          <Link className='nav-link text-white' to='/logout'*/}
+                    {/*                onClick={authContext.logout}>logout</Link>}*/}
+                    {/*    </li>*/}
+                    {/*  </ul>*/}
+                    {/*  <div className="panel-footer">Footer</div>*/}
+                    {/*</div>*/}
                     {isAuthenticated &&
                         <Link className='nav-link text-white' to='/logout' onClick={authContext.logout}>logout</Link>}
                   </li>

@@ -1,4 +1,6 @@
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './loginForm.css';
 import { LearinigComponent } from './components/learinig-examples/LearinigComponent';
 // import LearinigComponent  from './components/learinig-examples/LearinigComponent';
 // import Counter from "./components/counter/Counter";

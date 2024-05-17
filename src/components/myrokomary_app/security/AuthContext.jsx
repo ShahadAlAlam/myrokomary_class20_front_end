@@ -50,32 +50,38 @@ export default function AuthProvider({children}){
 
     async function login(username,password) {
         //basic Authentication
-        const baToken ='Basic '+ window.btoa(username+":"+password);
+        // const baToken ='Basic '+ window.btoa(username+":"+password);
 
         // setAuthenticated(false);
         // setUserNameValue(username);
 
         try{
             //basic Authentication
-            const response = await apiPathExecuteBasicAuthenticationService(baToken);
+            // const response = await apiPathExecuteBasicAuthenticationService(baToken);
 
             //jwt Authentication
-            // const response = await apiPathExecuteJwtAuthenticationService(username,password);
-            // console.log(response);
-            // const jwtToken ="Bearer "+response.data.token;
+            const response = await apiPathExecuteJwtAuthenticationService(username,password);
+            console.log(response);
+            const jwtToken ="Bearer "+response.data.token;
             // const jwtToken =response.data.token;
             if (response.status==200) {
                 setAuthenticated(true);
                 setUserNameValue(username);
                 //basic Authentication
-                setToken(baToken);
-                // setToken(jwtToken);
-
+                // setToken(baToken);
+                //JWT Authentication
+                setToken(jwtToken);
+                console.log("token="+token);
+                console.log("jwtToken="+jwtToken);
                 apiClient.interceptors.request.use(
                     (config)=>{
                         //basic Authentication
-                        config.headers.Authorization=baToken;
-                        // config.headers.Authorization=jwtToken;
+                        // config.headers.Authorization=baToken;
+                        // JWT Authentication
+                        // config.headers.Authorization=token;
+                        console.log("before jwtToken="+jwtToken);
+                        config.headers.Authorization=jwtToken;
+                        console.log("config.headers.Authorization="+config.headers.Authorization);
                         return config;
                     }
                 );
@@ -96,6 +102,15 @@ export default function AuthProvider({children}){
     setAuthenticated(false);
     setUserNameValue();
     setToken(null);
+      apiClient.interceptors.request.use(
+          (config)=>{
+              //basic Authentication
+              // config.headers.Authorization=baToken;
+              // JWT Authentication
+              config.headers.Authorization=token;
+              return config;
+          }
+      );
     return true;
   }
 
